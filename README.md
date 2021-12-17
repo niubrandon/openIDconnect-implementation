@@ -6,7 +6,7 @@ The objective for this project is implementing OpenID Connect.
 - Go
 - Auth0
 
-![overview](https://github.com/niubrandon/openIDconnect-implementation/blob/main/overview.png?raw=true)
+![overview](https://github.com/niubrandon/openIDconnect-implementation/blob/main/public/overview.png?raw=true)
 
 # References:
 1. JWT token: https://jwt.io/introduction
