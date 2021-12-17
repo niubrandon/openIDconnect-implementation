@@ -5,6 +5,7 @@ The objective for this project is implementing OpenID Connect.
 - React 
 - Go
 - Auth0
+- Docker
 
 ![overview](https://github.com/niubrandon/openIDconnect-implementation/blob/main/public/overview.png?raw=true)
 
