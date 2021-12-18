@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Router, Route } from 'react-router-dom';
+import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
+import { createBrowserHistory } from 'history';
+import Profile from './components/Profile.js'
 
-function App() {
+export const history = createBrowserHistory();
+
+const ProtectedRoute = ({ component, ...args }) => (
+  <Route component={withAuthenticationRequired(component)} {...args} />
+);
+
+const onRedirectCallback = (appState) => {
+  // Use the router's history module to replace the url
+  history.replace(appState?.returnTo || window.location.pathname);
+};
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Auth0Provider
+      domain="dev--h1k3jop.us.auth0.com"
+      clientId="ae8Yg3yWvzlCB7WGu6fTizFz6ikukY0i"
+      redirectUri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      {/* Don't forget to add the history to your router */}
+      <Router history={history}>
+        <Switch>
+          <Route path="/" exact />
+          <ProtectedRoute path="/profile" component={Profile} />
+        </Switch>
+      </Router>
+    </Auth0Provider>
   );
 }
-
-export default App;
