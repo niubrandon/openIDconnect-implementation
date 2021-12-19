@@ -1,15 +1,18 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import { createBrowserHistory } from 'history';
-import Profile from './components/Profile.js'
+import Profile from './components/Profile.js';
+import Home from './pages/Home.js';
 
 export const history = createBrowserHistory();
+
 
 const ProtectedRoute = ({ component, ...args }) => (
   <Route component={withAuthenticationRequired(component)} {...args} />
 );
 
+//refactor useNavigate replacing createBrowserHistory
 const onRedirectCallback = (appState) => {
   // Use the router's history module to replace the url
   history.replace(appState?.returnTo || window.location.pathname);
@@ -24,12 +27,14 @@ export default function App() {
       onRedirectCallback={onRedirectCallback}
     >
       {/* Don't forget to add the history to your router */}
-      <Router history={history}>
-        <Switch>
-          <Route path="/" exact />
-          <ProtectedRoute path="/profile" component={Profile} />
-        </Switch>
-      </Router>
+     
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
+       
+        </Routes>
+     
     </Auth0Provider>
   );
 }
+
