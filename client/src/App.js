@@ -25,6 +25,8 @@ export default function App() {
       clientId="ae8Yg3yWvzlCB7WGu6fTizFz6ikukY0i"
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
+      audience="https://dev--h1k3jop.us.auth0.com/api/v2/"
+      scope="read:messages"
     >
       {/* Don't forget to add the history to your router */}
      

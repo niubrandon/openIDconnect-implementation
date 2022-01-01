@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const Posts = () => {
+const Posts = (props) => {
   const { getAccessTokenSilently } = useAuth0();
   const [posts, setPosts] = useState(null);
 
@@ -9,10 +9,10 @@ const Posts = () => {
     (async () => {
       try {
         const token = await getAccessTokenSilently({
-          audience: 'https://api.example.com/',
-          scope: 'read:posts',
+          audience: "https://dev--h1k3jop.us.auth0.com/api/v2/",
+          scope: 'read:actions',
         });
-        const response = await fetch('https://api.example.com/posts', {
+        const response = await fetch('https://localhost:7162/api/private-scoped', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -29,11 +29,7 @@ const Posts = () => {
   }
 
   return (
-    <ul>
-      {posts.map((post, index) => {
-        return <li key={index}>{post}</li>;
-      })}
-    </ul>
+   <div>{posts && posts.message}</div>
   );
 };
 
